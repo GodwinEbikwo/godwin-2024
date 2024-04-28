@@ -1,20 +1,23 @@
 ---
+import Switcher from "../components/Switcher.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Godwin Ebikwo">
+<Layout title="godwinebikwo ⚡️">
   <main class="text">
     <h1>
       I’m Godwin Ebikwo, an analyst and a freelance developer based in London.
     </h1>
 
     <p>
-      My daily responsibilities at <a
+      My daily responsibilities at
+      <a
         class="underline"
         href="https://www.datitude.co.uk/"
         aria-label="navigates to datitude ltd"
-        >Datitude Ltd
-      </a>involve resolving client issues, developing new monitoring alerts, and
+      >
+        Datitude Ltd
+      </a> involve resolving client issues, developing new monitoring alerts, and
       solving platform-related issues.
     </p>
 
@@ -63,20 +66,23 @@ import Layout from "../layouts/Layout.astro";
     <p>
       Let’s get in touch! Follow me on
       <a
+        target="_blank"
         class="underline"
-        href="https://reinorg.netlify.app/"
+        href="https://www.instagram.com/godwinebikwo/?next=%2F"
         aria-label="navigates to REIN website"
       >
         Instagram,
       </a>
       <a
+        target="_blank"
         class="underline"
-        href="https://reinorg.netlify.app/"
+        href="www.linkedin.com/in/godwin-a-ebikwo"
         aria-label="navigates to my LinkedIn"
       >
         LinkedIn,
       </a>
       <a
+        target="_blank"
         class="underline"
         href="https://open.spotify.com/user/1508094"
         aria-label="navigates to my spotify's account"
@@ -86,11 +92,34 @@ import Layout from "../layouts/Layout.astro";
       or
       <a
         class="underline"
-        href="https://reinorg.netlify.app/"
+        href="mailto:godwin.a.ebikwo@gmail.com"
         aria-label="navigates to an email app to send me an email"
       >
         send me an email.
       </a>
+    </p>
+
+    <p>
+      <Switcher /> - You have reached the bottom. Don't like the color of the page?
+      you can change it!
+    </p>
+
+    <p>
+      Credits: <a
+        target="_blank"
+        class="underline"
+        href="https://astro.build/"
+        aria-label="navigates to an email app to send me an email"
+      >
+        Astro
+      </a>, <a
+        target="_blank"
+        class="underline"
+        href="https://klim.co.nz/retail-fonts/"
+        aria-label="navigates to an email app to send me an email"
+      >
+        Font
+      </a>,
     </p>
   </main>
 </Layout>
