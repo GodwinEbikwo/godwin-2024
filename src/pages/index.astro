@@ -114,14 +114,18 @@ import Layout from "../layouts/Layout.astro";
         aria-label="navigates to an email app to send me an email"
       >
         Font
-      </a>,
+      </a>
     </p>
 
     <p>⚠️ Site still underconstrution 👷🏿‍♂️</p>
 
     <p>
-      <Switcher /> - You have reached the bottom. Don't like the color of the page?
-      you can change it!
+      You have reached the bottom. Don't like the color of the page? you can
+      change it!
+    </p>
+
+    <p class="center">
+      <Switcher />
     </p>
   </main>
 </Layout>
@@ -130,5 +134,12 @@ import Layout from "../layouts/Layout.astro";
   .underline {
     display: inline-block;
     text-decoration: underline;
+  }
+
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 </style>
