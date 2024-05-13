@@ -1,8 +1,8 @@
 ---
-import Card from "../components/React/Card";
+import DynamicGrid from "../components/React/DynamicGrid";
 import DynamicLayout from "../layouts/DynamicLayout.astro";
 ---
 
 <DynamicLayout title="dynamic">
-  <Card client:only="”react”" />
+  <DynamicGrid client:load />
 </DynamicLayout>

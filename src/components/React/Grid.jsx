@@ -60,9 +60,15 @@ function Grid() {
           }}
           className="block_item"
         >
-          <div className="content">
+          <a
+            aria-label={`go to the ${item.title} page`}
+            href="/"
+            className="link link--metis"
+          >
             <h4>{item.title}</h4>
-          </div>
+          </a>
+
+          <div className="block_content"></div>
 
           <div className="dates">{index + 1}</div>
         </article>

@@ -4,17 +4,130 @@
   --nav-sidebar-width: 35vw;
   --header-height: 50px;
   --condensed: "Grotesk-Condensed";
-  --border-color: #333;
   --black: #0a0a0a;
   --white: #fff;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --yellow: yellow;
+  --blue: #172838;
+  --gray: #c9c1b6;
+  --off-white: rgba(255, 255, 255, 0.9);
 }
 
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
+
 
 html.dark {
   background-color: #001e0b;
@@ -44,11 +157,30 @@ body {
   letter-spacing: -0.06vw;
   font-family: "Grotesk", "Hanken Grotesk", sans-serif;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* .dynamic {
-  min-height: calc(100vh + 250px);
-} */
+li,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
 
 .text {
   padding: 2.2vw 10vw 0 3vw;
@@ -71,7 +203,7 @@ h1 {
 }
 
 .text a {
-  text-decoration: underline;
+  text-decoration: none;
   text-decoration-skip: ink;
   color: inherit;
   padding-left: 0.5vw;
@@ -90,34 +222,6 @@ h1 {
   overflow: hidden;
 }
 
-.link-external:after {
-  display: inline-block;
-  content: "â†—";
-  padding-left: 0.8vw;
-  font-weight: normal;
-}
-
-.link-external:after {
-  display: none;
-}
-
-
-.popup-titlebar {
-  height: 40px;
-  background: #fff;
-  /* font-size: 2.5vw;
-    line-height: 2.5vw; */
-  font-size: 22px;
-  line-height: 38px;
-  font-weight: bold;
-  /* letter-spacing: -0.03vw;*/
-  letter-spacing: -0.5px;
-
-  background: #000;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-}
-
 h2:before {
   content: "â—";
   position: absolute;
@@ -128,47 +232,37 @@ h2:before {
   /* transform-origin: 50% 50%; */
 }
 
-body.loading h2:before {
-  opacity: 1;
-}
 
-@keyframes circle {
-
-  0%,
-  100% {
-    transform: scale(1);
-    margin-top: -2px;
-  }
-
-  50% {
-    transform: scale(1.7);
-    margin-top: -3px;
-  }
-}
 
 .btn {
-  /* outline: solid 1px blue; */
   -webkit-appearance: none;
   -moz-appearance: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   appearance: none;
   height: 100%;
-  width: 40px;
-  font: inherit;
-  font-weight: normal;
-  font-size: 25px;
-  color: inherit;
-  background: none;
-  border: none;
+  width: auto;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--white);
   text-align: center;
-  color: #000;
   text-decoration: none;
   cursor: pointer;
-  /* cursor: url(assets/images/cursor3.png) 20 20, auto; */
-
-  color: #fff;
-  border-radius: 0px;
+  border-radius: 50px;
+  margin-right: 0.5em;
+  padding: 1rem 2rem;
+  font: inherit;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.btn-active {
+  background: var(--yellow);
+  color: #000;
+  outline: none
+}
+
 
 .btn-back {
   float: left;
@@ -188,17 +282,12 @@ h2 {
   font-weight: normal;
   line-height: inherit;
   letter-spacing: inherit;
-  /* outline: solid 1px red; */
   width: calc(100% - 80px);
   float: left;
   text-align: center;
 }
 
 iframe {
-  /* position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0; right: 0; bottom: 0; left: 0; */
   border: none;
   width: 100%;
   height: calc(100% - 40px);
@@ -211,17 +300,18 @@ iframe {
   outline: solid 4px rgba(0, 0, 0, 0.4);
 }
 
-.btn:focus {
+/* .btn:focus {
   background: #fff;
   color: #000;
   outline: none;
-}
+} */
 
 ::selection {
   background: #000;
   background: rgba(0, 0, 0, 0.99);
   color: #fff;
 }
+
 
 @keyframes fadein {
   0% {
@@ -250,6 +340,55 @@ iframe {
   }
 }
 
+.link {
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.link::before,
+.link::after {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  top: 100%;
+  left: 0;
+  pointer-events: none;
+}
+
+.link::before {
+  content: '';
+}
+
+.link--metis {
+  text-transform: inherit;
+}
+
+.link--metis::before {
+  transform-origin: 100% 50%;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.5s;
+}
+
+.link--metis:hover::before {
+  transform-origin: 0% 50%;
+  transform: scale3d(1, 1, 1);
+}
+
+/* calendar bits */
+
+.bg-black {
+  background: var(--black);
+  color: var(--off-white);
+}
+
+.dynamic-container {
+  margin-top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+}
+
 .block_grid {
   position: relative;
   display: grid;
@@ -257,30 +396,41 @@ iframe {
   grid-auto-flow: dense;
   grid-template-columns: repeat(1, 1fr);
   font-size: 3vw;
-  color: #2c2c2c;
+
+  @media (max-width: 767px) {
+    font-size: 6vw;
+    line-height: 6vw;
+  }
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
-
-  padding-top: 4.5vh;
 }
 
 .block_grid .block_item {
   padding: 20px;
   min-height: 50vh;
-  border: 0.4px solid var(--border-color);
+
   display: flex;
   flex-direction: column;
+  gap: 1.2rem;
   justify-content: space-between;
+  border: 0.2px solid var(--border-color);
 }
 
+.block_content {
+  position: relative;
+  background-color: var(--yellow);
+  height: 100%;
+  padding: 1rem;
+  border-radius: 30px;
+}
 
 .dates {
-  background-color: var(--black);
-  color: var(--white);
-  width: 50px;
-  height: 50px;
+  background-color: var(--yellow);
+  color: var(--black);
+  width: 55px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,4 +438,12 @@ iframe {
   border-radius: 9999px;
   font-family: var(--condensed);
   font-size: 2vw;
+  letter-spacing: 0;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  padding: var(--padding);
 }

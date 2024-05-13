@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import "./styles/Header.css"; // Make sure to create this CSS file
+import "./styles/Header.css";
+import { useState, useRef, useEffect } from "react"; // Make sure to create this CSS file
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
