@@ -2,7 +2,7 @@
   --border-radius: 50px;
   --padding: 20px;
   --nav-sidebar-width: 35vw;
-  --header-height: 50px;
+  --header-height: 60px;
   --condensed: "Grotesk-Condensed";
   --black: #0a0a0a;
   --white: #fff;
@@ -11,6 +11,9 @@
   --blue: #172838;
   --gray: #c9c1b6;
   --off-white: rgba(255, 255, 255, 0.9);
+  --primary: var(--black);
+  --secondary: #503C3C;
+  --tetiary: yellow;
 }
 
 html,
@@ -253,12 +256,12 @@ h2:before {
   margin-right: 0.5em;
   padding: 1rem 2rem;
   font: inherit;
-  font-size: 1rem;
+  font-size: 22px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-active {
-  background: var(--yellow);
+  background: var(--tetiary);
   color: #000;
   outline: none
 }
@@ -379,7 +382,7 @@ iframe {
 /* calendar bits */
 
 .bg-black {
-  background: var(--black);
+  background: var(--primary);
   color: var(--off-white);
 }
 
@@ -404,41 +407,17 @@ iframe {
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 1px;
   }
 }
 
 .block_grid .block_item {
   padding: 20px;
-  min-height: 50vh;
-
+  /* min-height: 60vh; */
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   justify-content: space-between;
-  border: 0.2px solid var(--border-color);
-}
-
-.block_content {
-  position: relative;
-  background-color: var(--yellow);
-  height: 100%;
-  padding: 1rem;
-  border-radius: 30px;
-}
-
-.dates {
-  background-color: var(--yellow);
-  color: var(--black);
-  width: 55px;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-radius: 9999px;
-  font-family: var(--condensed);
-  font-size: 2vw;
-  letter-spacing: 0;
 }
 
 .grid-controls {
@@ -446,4 +425,5 @@ iframe {
   align-items: center;
   height: var(--header-height);
   padding: var(--padding);
+  background-color: var(--black);
 }

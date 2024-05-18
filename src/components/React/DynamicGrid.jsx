@@ -1,96 +1,94 @@
 import { useState, useEffect, useCallback, memo } from "react";
 import Article from "./Article";
+import GridControls from "./GridControls";
 import debounce from "lodash/debounce";
 
 const localContentArray = [
   { title: "January - 2024", bgColor: "#172838", textColor: "#c9c1b6" },
-  { title: "Febuary - 2024", bgColor: "#11c4ac", textColor: "#1f278e" },
+  { title: "February - 2024", bgColor: "#11c4ac", textColor: "#1f278e" },
   { title: "March - 2024", bgColor: "#25122f", textColor: "#f489ca" },
-  { title: "April -  2024", bgColor: "#f4f5fa", textColor: "#4f72ab" },
-  { title: "May - 2024", bgColor: "#f4f5fa", textColor: "#4f72ab" },
-  { title: "June - 2024", bgColor: "#0a0a0a", textColor: "#f3dec2" },
+  { title: "April - 2024", bgColor: "#f4f5fa", textColor: "#4f72ab" },
+  { title: "May - 2024", bgColor: "#FF6600", textColor: "#f8eadb" },
+  { title: "June - 2024", bgColor: "#f8baed", textColor: "#ea0606" },
   { title: "July - 2024", bgColor: "#2b2b2b", textColor: "#dd9933" },
   { title: "August - 2024", bgColor: "#f8eadb", textColor: "#31322f" },
-  { title: "September - 2024", bgColor: "#690075", textColor: "#edad00" },
-  { title: "October - 2024", bgColor: "#ec704e", textColor: "#25303e" },
+  { title: "Sept - 2024", bgColor: "#690075", textColor: "#edad00" },
+  { title: "October - 2024", bgColor: "#ea0606", textColor: "#f8eadb" },
   { title: "November", bgColor: "#222222", textColor: "#ffb01f" },
   { title: "December", bgColor: "#222222", textColor: "#ffb01f" },
+  { title: "Janurary - 2025", bgColor: "#2b2b2b", textColor: "#dd9933" },
+  { title: "Febuary - 2025", bgColor: "#f8eadb", textColor: "#31322f" },
+  { title: "March - 2025", bgColor: "#25122f", textColor: "#f489ca" },
+  { title: "April - 2025", bgColor: "#f4f5fa", textColor: "#4f72ab" },
+  { title: "May - 2025", bgColor: "#FF6600", textColor: "#f8eadb" },
+  { title: "June - 2025", bgColor: "#f8baed", textColor: "#ea0606" },
 ];
 
-const defaultPattern = [4, 2, 2, 2, 2, 4, 2, 2, 2, 2, 6, 2];
-const twoColumnPattern = new Array(12).fill(4);
-const singleColumnPattern = new Array(12).fill(12);
+const patterns = {
+  default: [4, 2, 2, 2, 2, 4, 2, 4, 2, 4, 2, 2, 2, 4, 2, 2, 2, 4],
+  grid: new Array(12).fill(4),
+  paper: new Array(12).fill(12),
+};
 
 function Grid() {
-  const [spanArray, setSpanArray] = useState([]);
   const [gridStyle, setGridStyle] = useState("default");
+  const [spanArray, setSpanArray] = useState([]);
+  const [isLargeWindow, setIsLargeWindow] = useState(true);
 
-  const updateSpansForWidth = useCallback((width) => {
-    let pattern = defaultPattern;
-    if (width < 1024) pattern = new Array(localContentArray.length).fill(4);
+  const updateSpansForWidth = useCallback((style) => {
+    const pattern = patterns[style] || patterns.default;
     return localContentArray.map((_, index) => pattern[index % pattern.length]);
   }, []);
 
-  const handleResize = useCallback(() => {
-    debounce(() => {
-      setSpanArray(updateSpansForWidth(window.innerWidth));
-    }, 100)();
+  const updateGridStyleForWindowWidth = useCallback(() => {
+    if (typeof window !== "undefined") {
+      let newStyle = "default";
+      if (window.innerWidth < 767) {
+        newStyle = "paper";
+      } else if (window.innerWidth < 1280) {
+        newStyle = "grid";
+      }
+      setIsLargeWindow(window.innerWidth >= 1280);
+      setGridStyle(newStyle);
+      setSpanArray(updateSpansForWidth(newStyle));
+    }
   }, [updateSpansForWidth]);
 
-  useEffect(() => {
-    const calculatePattern = () => {
-      switch (gridStyle) {
-        case "twoColumn":
-          return twoColumnPattern;
-        case "single":
-          return singleColumnPattern;
-        default:
-          return defaultPattern;
-      }
-    };
-
-    const pattern = calculatePattern();
-    setSpanArray(
-      localContentArray.map((_, index) => pattern[index % pattern.length])
-    );
-  }, [gridStyle]);
+  const debouncedResizeHandler = useCallback(
+    debounce(() => {
+      updateGridStyleForWindowWidth();
+    }, 100),
+    [updateGridStyleForWindowWidth]
+  );
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Initial call to set spans
+    if (typeof window !== "undefined") {
+      updateGridStyleForWindowWidth();
+      window.addEventListener("resize", debouncedResizeHandler);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      handleResize.cancel(); // Cancel the debounce on unmount to clean up
-    };
-  }, [handleResize]);
+      return () => {
+        debouncedResizeHandler.cancel(); // Cancel the debounce on unmount
+        window.removeEventListener("resize", debouncedResizeHandler);
+      };
+    }
+  }, [debouncedResizeHandler, updateGridStyleForWindowWidth]);
 
-  const handleGridStyleChange = useCallback((style) => {
-    setGridStyle(style);
-  }, []);
+  const handleGridStyleChange = useCallback(
+    (style) => {
+      setGridStyle(style);
+      setSpanArray(updateSpansForWidth(style));
+    },
+    [updateSpansForWidth]
+  );
 
   return (
     <div className="dynamic-container">
-      <div className="grid-controls">
-        <button
-          className={`btn ${gridStyle === "default" ? "btn-active" : ""}`}
-          onClick={() => handleGridStyleChange("default")}
-        >
-          Calendar Grid
-        </button>
-        <button
-          className={`btn ${gridStyle === "twoColumn" ? "btn-active" : ""}`}
-          onClick={() => handleGridStyleChange("twoColumn")}
-        >
-          Paper Columns
-        </button>
-        <button
-          className={`btn ${gridStyle === "single" ? "btn-active" : ""}`}
-          onClick={() => handleGridStyleChange("single")}
-        >
-          Single File
-        </button>
-      </div>
+      {isLargeWindow && (
+        <GridControls
+          gridStyle={gridStyle}
+          handleGridStyleChange={handleGridStyleChange}
+        />
+      )}
       <div className="block_grid">
         {localContentArray.map((item, index) => (
           <Article
