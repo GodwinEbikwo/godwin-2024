@@ -28,7 +28,7 @@ const Article = memo(({ item, span }) => {
       className="block_item"
     >
       <a
-        href="/"
+        href="/blog"
         style={{ outline: "none" }}
         aria-label={`Read more about ${item.title}`}
         onFocus={(e) => (e.target.style.outline = "auto")}
@@ -36,7 +36,7 @@ const Article = memo(({ item, span }) => {
         <h4>{item.title}</h4>
       </a>
 
-      <a href="/" className="block__preview">
+      <a href="/blog" className="block__preview">
         <img
           src="https://cca-annex.net/wp-content/uploads/2022/06/000032.jpg"
           alt={item.title}

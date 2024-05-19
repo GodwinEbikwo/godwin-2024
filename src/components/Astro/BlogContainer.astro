@@ -1,0 +1,209 @@
+---
+import { Image } from "astro:assets";
+---
+
+<div class="dynamic-container">
+  <article class="post">
+    <aside class="post-sidebar">
+      <ul>
+        <li class="post-row">
+          <h4 class="gray">Date / Time</h4>
+          <h4>This happened on - 20th July 2024</h4>
+        </li>
+        <li class="post-row">
+          <h4 class="gray">Tags</h4>
+          <h4>
+            <a class="tags link link--metis" href="/">Man</a>, <a
+              class="tags link link--metis"
+              href="/">Sainte</a
+            >,
+            <a class="tags link link--metis" href="/">Money</a>,
+            <a class="tags link link--metis" href="/">Food</a>
+          </h4>
+        </li>
+        <li class="post-row">
+          <h4 class="gray"></h4>
+          <h4>London</h4>
+        </li>
+        <li class="post-row">
+          <h4 class="gray">Author</h4>
+          <h4>Godwin Ebikwo</h4>
+        </li>
+        <li class="post-row">
+          <h4 class="gray">Guest</h4>
+          <h4>Savannah Hobbs</h4>
+        </li>
+      </ul>
+    </aside>
+    <div class="post-main">
+      <div class="post-header">
+        <h1>Sage feast to the world London - Part IV</h1>
+      </div>
+
+      <div class="post-image">
+        <Image
+          src="https://cca-annex.net/wp-content/uploads/2022/06/000032.jpg"
+          alt="descriptive text"
+          width="1200"
+          height="600"
+          decoding="async"
+          loading="eager"
+        />
+      </div>
+
+      <div class="post-content padding-xl">
+        <div class="post-prose prose">
+          <p>
+            Who defines what soil is and determines how it is used and cared
+            for? Following the 22nd World Congress of Soil Science – Crossing
+            Boundaries, Changing Society and the current exhibition We are
+            Compost / Composting the We at the CCA, CCA Annex is hosting a
+            series of online performance lectures and dialogues in a process of
+            collaborative thinking between art, science and ancestral ways of
+            knowing. In an age characterised by the entangled crises of climate
+            change and political upheaval we are interested in exploring soils
+            as dynamic spaces of multi-species engineering and convivial
+            encounter, collective metabolisms that materially and conceptually
+            intersect with concerns about food sovereignty, waste and energy
+            streams, allotment politics, right to land, seed saving strategies,
+            and soils as relational bodies.
+          </p>
+
+          <p>
+            For this event we welcome organic food grower and writer Claire
+            Ratinon for both a talk and garden tour. Based in East Sussex,
+            Claire has grown edible plants in a variety of roles from growing
+            organic vegetables for the Ottolenghi restaurant, Rovi to delivering
+            workshops throughout London. Claire has been invited to share her
+            growing journey in talks for organisations including Tate Liverpool,
+            Charleston House and Royal Botanical Garden, Edinburgh, as well as
+            presenting features for Radio 4’s Gardeners’ Question Time. Her
+            writing has been featured in The New Statesman, Bloom Magazine and
+            Waitrose Food Magazine. She co-wrote the pamphlet, ‘Horticultural
+            Appropriation’ for Rough Trade Books with artist, Sam Ayre and her
+            first book, ‘How To Grow Your Dinner Without Leaving The House’ was
+            published in August 2020. Her new book, ‘Unearthed: On Race and
+            Roots, and How the Soil Taught Me I Belong,’ is out now.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .post {
+    --spacer: 5;
+    --width: 450px;
+    --bottom: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .post {
+      display: grid;
+      grid-template-columns: var(--width) auto;
+    }
+  }
+
+  .post-sidebar {
+    /* padding: var(--padding); */
+    display: none;
+    @media (min-width: 1024px) {
+      display: block;
+    }
+  }
+
+  .post-main {
+    color: var(--black);
+    background: rgb(248, 234, 219);
+  }
+
+  .post-header {
+    padding: var(--padding);
+    margin-bottom: var(--bottom);
+
+    > h1 {
+      max-width: 23ch;
+      margin-bottom: 0;
+    }
+  }
+
+  .post-image {
+    padding: 0px var(--padding);
+    margin-bottom: var(--bottom);
+
+    @media (min-width: 1024px) {
+      padding: 0px calc(var(--padding) * var(--spacer)) 0
+        calc(var(--padding) + 0.5rem);
+    }
+  }
+
+  .post-image img {
+    width: 100%; /* Make image responsive */
+    height: auto;
+  }
+
+  .post-content {
+    padding: 0px var(--padding);
+    margin-bottom: var(--bottom);
+
+    @media (min-width: 1024px) {
+      &.padding-xl {
+        padding: var(--padding) calc(var(--padding) * var(--spacer)) 0
+          calc(var(--padding) + 0.65rem);
+      }
+    }
+  }
+
+  .prose {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 auto;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: -0.04vw;
+
+    @media (min-width: 1024px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  .prose p,
+  .prose ul,
+  .prose li {
+    margin-bottom: var(--bottom);
+  }
+
+  .post-sidebar ul {
+    list-style: none;
+  }
+
+  .post-sidebar li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+
+  .post-row {
+    padding: 7px 0px;
+    border-bottom: 1px solid #444;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  .gray {
+    opacity: 0.6;
+  }
+
+  .tags {
+    text-decoration: underline;
+  }
+</style>
