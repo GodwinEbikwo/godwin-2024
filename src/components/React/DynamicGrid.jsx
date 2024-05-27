@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Article from "./Article";
 import GridControls from "./GridControls";
 import debounce from "lodash/debounce";
@@ -31,14 +31,16 @@ const patterns = {
 };
 
 function Grid() {
-  const [gridStyle, setGridStyle] = useState("default");
-  const [spanArray, setSpanArray] = useState([]);
-  const [isLargeWindow, setIsLargeWindow] = useState(true);
-
   const updateSpansForWidth = useCallback((style) => {
     const pattern = patterns[style] || patterns.default;
     return localContentArray.map((_, index) => pattern[index % pattern.length]);
   }, []);
+
+  const [gridStyle, setGridStyle] = useState("default");
+  const [spanArray, setSpanArray] = useState(() =>
+    updateSpansForWidth("default")
+  );
+  const [isLargeWindow, setIsLargeWindow] = useState(true);
 
   const updateGridStyleForWindowWidth = useCallback(() => {
     if (typeof window !== "undefined") {

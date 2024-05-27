@@ -1,8 +1,9 @@
 import "./styles/Header.css";
-import { useState, useRef, useEffect } from "react"; // Make sure to create this CSS file
+import { useState, useRef, useEffect } from "react";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   // Handle clicks outside the nav
   useEffect(() => {
@@ -26,11 +27,22 @@ function Header() {
   };
 
   return (
-    <div className="header">
-      <button className="open-btn" onClick={toggleNav}>
+    <header className="header">
+      <button
+        className="open-btn"
+        onClick={toggleNav}
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
+      >
         Menu
       </button>
-      <nav id="sidebar" className={`sidebar ${isOpen ? "open" : ""}`}>
+
+      <nav
+        id="sidebar"
+        ref={sidebarRef}
+        className={`sidebar ${isOpen ? "open" : ""}`}
+        aria-hidden={!isOpen}
+      >
         <button className="close-btn" onClick={toggleNav}>
           Close
         </button>
@@ -47,10 +59,11 @@ function Header() {
         </ul>
       </nav>
       <div
+        aria-hidden="true"
         className={`backdrop ${isOpen ? "show" : ""}`}
         onClick={() => setIsOpen(false)}
       />
-    </div>
+    </header>
   );
 }
 

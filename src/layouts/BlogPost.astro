@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogContent from "../components/Astro/Blog/BlogContent.astro";
+
+const { content } = Astro.props;
+const { title } = content;
+---
+
+<Layout title={title as string}>
+  <main class="p-6 lg:grid lg:grid-cols-3 flex justify-center">
+    <BlogContent content={content}>
+      <slot />
+    </BlogContent>
+  </main>
+</Layout>

@@ -26,6 +26,8 @@ const Article = memo(({ item, span }) => {
         backgroundColor: item.bgColor,
       }}
       className="block_item"
+      role="article"
+      aria-labelledby={`article-title-${item.title}`}
     >
       <a
         href="/blog"
@@ -36,10 +38,16 @@ const Article = memo(({ item, span }) => {
         <h4>{item.title}</h4>
       </a>
 
-      <a href="/blog" className="block__preview">
+      <a
+        href="/article"
+        className="block__preview"
+        aria-labelledby={`article-title-${item.title}`}
+      >
         <img
-          src="https://cca-annex.net/wp-content/uploads/2022/06/000032.jpg"
-          alt={item.title}
+          src={
+            "https://res.cloudinary.com/godwinebikwo/image/upload/f_webp/q_auto/lilbaby_mumxjb.jpg"
+          }
+          alt={`related to ${item.title}`}
           className="block__image"
         />
         <div
