@@ -27,43 +27,45 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <button
-        className="open-btn"
-        onClick={toggleNav}
-        aria-expanded={isOpen}
-        aria-controls="sidebar"
-      >
-        Menu
-      </button>
-
-      <nav
-        id="sidebar"
-        ref={sidebarRef}
-        className={`sidebar ${isOpen ? "open" : ""}`}
-        aria-hidden={!isOpen}
-      >
-        <button className="close-btn" onClick={toggleNav}>
-          Close
+    <>
+      <header className="header">
+        <button
+          className="open-btn"
+          onClick={toggleNav}
+          aria-expanded={isOpen}
+          aria-controls="sidebar"
+        >
+          Menu
         </button>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-      </nav>
-      <div
-        aria-hidden="true"
-        className={`backdrop ${isOpen ? "show" : ""}`}
-        onClick={() => setIsOpen(false)}
-      />
-    </header>
+
+        <nav
+          id="sidebar"
+          ref={sidebarRef}
+          className={`sidebar ${isOpen ? "open" : ""}`}
+          aria-hidden={!isOpen}
+        >
+          <button className="close-btn" onClick={toggleNav}>
+            Close
+          </button>
+          <ul>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          aria-hidden="true"
+          className={`backdrop ${isOpen ? "show" : ""}`}
+          onClick={() => setIsOpen(false)}
+        />
+      </header>
+    </>
   );
 }
 

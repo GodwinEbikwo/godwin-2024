@@ -1,0 +1,353 @@
+---
+import DynamicLayout from "../layouts/DynamicLayout.astro";
+const divs = Array.from({ length: 30 }, (_, index) => index);
+
+const gridConfigs = {
+  default: { className: "grid-spacer", style: "--display: flex;" },
+  special: [
+    {
+      index: 25,
+      className: "custom-grid-spacer",
+      style:
+        "--grid-lg-area: 3 / 2; --grid-md-area: 4 / 2; --grid-area: 4 / 2; min-height: auto;",
+    },
+    {
+      index: 26,
+      className: "custom-grid-spacer link-hover",
+      style:
+        "--grid-lg-area: 4 / 2; --grid-md-area: 4 / 3; --grid-area: 5 / 2; min-height: auto;",
+      href: "/",
+    },
+    {
+      index: 27,
+      className: "custom-grid-spacer radial",
+      style:
+        "--grid-lg-area: 3 / 3 / span 2 / span 2; --grid-md-area: 3 / 2 / span 1 / span 2; --grid-area: 3 / 2;",
+    },
+    {
+      index: 28,
+      className: "custom-grid-spacer radial",
+      style:
+        "--grid-lg-area: 6 / 2 / span 1 / span 2; --grid-md-area: 6 / 2; --grid-area: 7 / 2;",
+    },
+    {
+      index: 29,
+      className: "custom-grid-spacer",
+      style:
+        "--grid-lg-area: 6 / 4; --grid-md-area: 6 / 3; --grid-area: 8 / 2;",
+    },
+  ],
+  hidden: {
+    from: 16,
+    to: 25,
+    className: "grid-spacer",
+    style: "--display: none; --display-md: flex;",
+  },
+};
+---
+
+<DynamicLayout title="dynamic">
+  <div class="root">
+    <div class="container-inner">
+      <aside class="fade-x"></aside>
+      <aside class="fade-y"></aside>
+      <section class="grid-box">
+        {
+          divs.map((_, index) => {
+            if (
+              index >= gridConfigs.hidden.from &&
+              index < gridConfigs.hidden.to
+            ) {
+              return (
+                <div
+                  class={gridConfigs.hidden.className}
+                  style={gridConfigs.hidden.style}
+                />
+              );
+            }
+
+            const specialConfig = gridConfigs.special.find(
+              (config) => config.index === index
+            );
+
+            if (specialConfig) {
+              if (specialConfig.href) {
+                return (
+                  <a
+                    href={specialConfig.href}
+                    target="_blank"
+                    class={specialConfig.className}
+                    style={specialConfig.style}
+                  >
+                    {index === 26 && (
+                      <>
+                        <p class="text-sm">
+                          Continue to the next section to learn about
+                          customizing your theme with a custom font.
+                        </p>
+
+                        <span class="text-sm white">
+                          Read the docs
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </>
+                    )}
+                  </a>
+                );
+              }
+
+              return (
+                <div
+                  class={specialConfig.className}
+                  style={specialConfig.style}
+                >
+                  {index === 25 && <h1 class="text-lg">Repeat Station</h1>}
+                </div>
+              );
+            }
+
+            return (
+              <div
+                class={gridConfigs.default.className}
+                style={gridConfigs.default.style}
+              />
+            );
+          })
+        }
+      </section>
+    </div>
+  </div>
+</DynamicLayout>
+
+<style>
+  .root {
+    --column-count: 1;
+    --spacing-3: 24px;
+    --spacing-4: 32px;
+
+    --grey-300: #6a6b6c;
+    --grey-500: #2f3031;
+    --grey-600: #1b1c1e;
+    --grey-800: #0c0d0f;
+    --grey-900: #07080a;
+    --grid-width: min(calc(100vw - 30px * 2), 1065px);
+
+    /* margin-top: calc(var(--header-height) + 5px); */
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  .fade-x {
+    &::before {
+      right: auto;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      --direction: to right;
+      width: calc(calc(100vw - var(--grid-width)) / 2);
+      pointer-events: none;
+      position: absolute;
+      content: "";
+      background: linear-gradient(
+        var(--direction),
+        var(--grey-900) 0,
+        transparent 100%
+      );
+    }
+
+    &::after {
+      left: auto;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      --direction: to left;
+      width: calc(calc(100vw - var(--grid-width)) / 2);
+      pointer-events: none;
+      position: absolute;
+      content: "";
+      background: linear-gradient(
+        var(--direction),
+        var(--grey-900) 0,
+        transparent 100%
+      );
+    }
+  }
+
+  .fade-y {
+    &::before {
+      bottom: auto;
+      height: 146px;
+      --direction: to bottom;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      content: "";
+      background: linear-gradient(
+        var(--direction),
+        var(--grey-900) 0,
+        transparent 100%
+      );
+    }
+
+    &::after {
+      top: auto;
+      height: 209px;
+      --direction: to top;
+      pointer-events: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      content: "";
+      background: linear-gradient(
+        var(--direction),
+        var(--grey-900) 0,
+        transparent 100%
+      );
+    }
+  }
+
+  .container-inner {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .grid-box {
+    display: grid;
+    grid-template-columns:
+      1fr repeat(
+        var(--column-count),
+        calc(var(--grid-width) / var(--column-count))
+      )
+      1fr;
+    gap: 1px;
+    counter-reset: fig;
+
+    @media (min-width: 784px) {
+      --column-count: 2;
+    }
+
+    @media (min-width: 1200px) {
+      --column-count: 3;
+    }
+
+    > * {
+      box-shadow:
+        0 0 0 1px var(--grey-600),
+        inset 0 0 0 1px var(--grey-900);
+    }
+  }
+
+  .grid-spacer,
+  .custom-grid-spacer {
+    display: var(--display, flex);
+    grid-area: var(--grid-area, auto);
+    min-height: 48px;
+
+    @media (min-width: 784px) {
+      display: var(--display-md, var(--display, flex));
+      grid-area: var(--grid-md-area, auto);
+    }
+
+    @media (min-width: 1200px) {
+      display: var(--display-lg, var(--display-md, var(--display, flex)));
+      grid-area: var(--grid-lg-area, var(--grid-md-area, auto));
+    }
+  }
+
+  .grid-spacer:first-child {
+    height: 146px;
+  }
+
+  .text-lg {
+    --fs-lg: 60px;
+    --ls-lg: -0.025em;
+    --lh-lg: 60px;
+
+    margin-bottom: 0;
+    font-size: var(--fs-lg);
+    letter-spacing: var(--ls-lg);
+    line-height: var(--lh-lg);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
+  }
+
+  .text-sm {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    line-height: 160%;
+    color: var(--Text-Muted, var(--grey-300));
+  }
+
+  .custom-grid-spacer {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    justify-content: space-between;
+    min-height: 300px;
+    padding: var(--spacing-3);
+
+    @media (min-width: 784px) {
+      min-height: 355px;
+    }
+  }
+
+  .radial {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background-image: radial-gradient(var(--grey-500) 0.5px, transparent 0);
+    background-repeat: repeat;
+    background-position: -8.5px -8.5px;
+    background-size: 17px 17px;
+  }
+
+  .link-hover {
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.15s;
+    &:hover {
+      background-color: var(--grey-800);
+    }
+  }
+
+  .text-sm.white {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .white {
+    color: var(--white);
+  }
+</style>
