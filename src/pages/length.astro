@@ -1,78 +1,28 @@
 ---
+import ForwardArrow from "../assets/arrow.svg?raw";
 import DynamicLayout from "../layouts/DynamicLayout.astro";
-const divs = Array.from({ length: 35 }, (_, index) => index);
+
+const items = Array.from({ length: 35 }, (_, index) => index);
 
 const gridConfigs = {
-  default: { className: "grid-spacer", style: "--display: flex;" },
+  default: { className: "grid-spacer" },
   special: [
-    {
-      index: 25,
-      className: "custom-grid-spacer",
-      style:
-        "--grid-lg-area: 3 / 2; --grid-md-area: 4 / 2; --grid-area: 4 / 2; min-height: auto;",
-    },
+    { index: 25, className: "grid-spacer-alt item-25" },
     {
       index: 26,
-      className: "custom-grid-spacer link-hover",
-      style:
-        "--grid-lg-area: 4 / 2; --grid-md-area: 4 / 3; --grid-area: 5 / 2; min-height: auto;",
+      className: "grid-spacer-alt item-26",
       href: "/",
     },
-    {
-      index: 27,
-      className: "custom-grid-spacer radial",
-      style:
-        "--grid-lg-area: 3 / 3 / span 2 / span 2; --grid-md-area: 3 / 2 / span 1 / span 2; --grid-area: 3 / 2;",
-    },
-    {
-      index: 28,
-      className: "custom-grid-spacer radial",
-      style:
-        "--grid-lg-area: 6 / 2 / span 1 / span 2; --grid-md-area: 6 / 2; --grid-area: 7 / 2;",
-    },
-    {
-      index: 29,
-      className: "custom-grid-spacer",
-      style:
-        "--grid-lg-area: 6 / 4; --grid-md-area: 6 / 3; --grid-area: 8 / 2;",
-    },
-    {
-      index: 30,
-      className: "custom-grid-spacer radial",
-      style: "--grid-lg-area: 7 / 2; --display: none; --display-lg: flex;",
-    },
-    {
-      index: 31,
-      className: "custom-grid-spacer",
-      style:
-        "--grid-lg-area: 7 / 3; --grid-md-area: 7 / 2; --grid-area: 10 / 2; min-height: 300px;",
-      href: "/",
-    },
-    {
-      index: 32,
-      className: "custom-grid-spacer",
-      style:
-        "--grid-lg-area: 7 / 4; --grid-md-area: 7 / 4; --grid-area: 9 / 2;",
-    },
-    {
-      index: 33,
-      className: "custom-grid-spacer",
-      style:
-        "--grid-lg-area: 9 / 2; --grid-md-area: 9 / 2;  --display: none;  --display-md: flex;",
-    },
-    {
-      index: 34,
-      className: "custom-grid-spacer radial",
-      style:
-        "--grid-lg-area: 9 / 3 / span 1 / span 2; --grid-md-area: 9 / 3;  --display: none; --display-md: flex;",
-    },
+    { index: 27, className: "grid-spacer-alt radial item-27" },
+    { index: 28, className: "grid-spacer-alt radial item-28" },
+    { index: 29, className: "grid-spacer-alt item-29" },
+    { index: 30, className: "grid-spacer-alt radial item-30" },
+    { index: 31, className: "grid-spacer-alt item-31", href: "/" },
+    { index: 32, className: "grid-spacer-alt item-32" },
+    { index: 33, className: "grid-spacer-alt item-33" },
+    { index: 34, className: "grid-spacer-alt radial item-34" },
   ],
-  hidden: {
-    from: 16,
-    to: 25,
-    className: "grid-spacer",
-    style: "--display: none; --display-md: flex;",
-  },
+  hidden: { from: 16, to: 25, className: "grid-spacer hidden" },
 };
 ---
 
@@ -81,19 +31,14 @@ const gridConfigs = {
     <div class="container-inner">
       <aside class="fade-x"></aside>
       <aside class="fade-y"></aside>
-      <section class="grid-box">
+      <ul class="grid-box">
         {
-          divs.map((_, index) => {
+          items.map((_, index) => {
             if (
               index >= gridConfigs.hidden.from &&
               index < gridConfigs.hidden.to
             ) {
-              return (
-                <div
-                  class={gridConfigs.hidden.className}
-                  style={gridConfigs.hidden.style}
-                />
-              );
+              return <li class={gridConfigs.hidden.className} />;
             }
 
             const specialConfig = gridConfigs.special.find(
@@ -101,13 +46,17 @@ const gridConfigs = {
             );
 
             if (specialConfig) {
+              const classNames = [specialConfig.className];
+
+              if (specialConfig.href) {
+                classNames.push("link-hover");
+              }
               if (specialConfig.href) {
                 return (
                   <a
                     href={specialConfig.href}
                     target="_blank"
-                    class={specialConfig.className}
-                    style={specialConfig.style}
+                    class={classNames.join(" ")}
                   >
                     {index === 26 && (
                       <>
@@ -115,67 +64,87 @@ const gridConfigs = {
                           Continue to the next section to learn about
                           customizing your theme with a custom font.
                         </p>
-
                         <span class="text-sm white">
                           Read the docs
-                          <svg
-                            width="15"
-                            height="15"
-                            viewBox="0 0 15 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
+                          <Fragment set:html={ForwardArrow} />
                         </span>
                       </>
                     )}
+
+                    {index === 31 && <h1 class="text-lg">Repeat Station</h1>}
                   </a>
                 );
               }
-
               return (
-                <div
-                  class={specialConfig.className}
-                  style={specialConfig.style}
-                >
+                <li class={classNames.join(" ")}>
                   {index === 25 && <h1 class="text-lg">Repeat Station</h1>}
-                </div>
+                </li>
               );
             }
 
-            return (
-              <div
-                class={gridConfigs.default.className}
-                style={gridConfigs.default.style}
-              />
-            );
+            return <li class={gridConfigs.default.className} />;
           })
         }
-      </section>
+      </ul>
     </div>
   </div>
 </DynamicLayout>
 
 <style>
-  .root {
+  :root {
     --column-count: 1;
     --spacing-3: 24px;
     --spacing-4: 32px;
-
     --grey-300: #6a6b6c;
     --grey-500: #2f3031;
     --grey-600: #1b1c1e;
     --grey-800: #0c0d0f;
     --grey-900: #07080a;
     --grid-width: min(calc(100vw - 30px * 2), 1065px);
+    --display: flex;
 
-    /* margin-top: calc(var(--header-height) + 5px); */
+    /* Special grid area variables */
+    --grid-lg-area-25: 3 / 2;
+    --grid-md-area-25: 4 / 2;
+    --grid-area-25: 4 / 2;
+
+    --grid-lg-area-26: 4 / 2;
+    --grid-md-area-26: 4 / 3;
+    --grid-area-26: 5 / 2;
+
+    --grid-lg-area-27: 3 / 3 / span 2 / span 2;
+    --grid-md-area-27: 3 / 2 / span 1 / span 2;
+    --grid-area-27: 3 / 2;
+
+    --grid-lg-area-28: 6 / 2 / span 1 / span 2;
+    --grid-md-area-28: 6 / 2;
+    --grid-area-28: 7 / 2;
+
+    --grid-lg-area-29: 6 / 4;
+    --grid-md-area-29: 6 / 3;
+    --grid-area-29: 8 / 2;
+
+    --grid-lg-area-30: 7 / 2;
+    --display-lg-30: flex;
+
+    --grid-lg-area-31: 7 / 3;
+    --grid-md-area-31: 7 / 2;
+    --grid-area-31: 10 / 2;
+
+    --grid-lg-area-32: 7 / 4;
+    --grid-md-area-32: 7 / 4;
+    --grid-area-32: 9 / 2;
+
+    --grid-lg-area-33: 9 / 2;
+    --grid-md-area-33: 9 / 2;
+    --display-md-33: flex;
+
+    --grid-lg-area-34: 9 / 3 / span 1 / span 2;
+    --grid-md-area-34: 9 / 3;
+    --display-md-34: flex;
+  }
+
+  .root {
     min-height: calc(100vh - var(--header-height));
   }
 
@@ -275,19 +244,19 @@ const gridConfigs = {
     @media (min-width: 1200px) {
       --column-count: 3;
     }
+  }
 
-    > * {
-      box-shadow:
-        0 0 0 1px var(--grey-600),
-        inset 0 0 0 1px var(--grey-900);
-    }
+  .grid-box > * {
+    box-shadow:
+      0 0 0 1px var(--grey-600),
+      inset 0 0 0 1px var(--grey-900);
   }
 
   .grid-spacer,
-  .custom-grid-spacer {
+  .grid-spacer-alt {
+    min-height: 48px;
     display: var(--display, flex);
     grid-area: var(--grid-area, auto);
-    min-height: 48px;
 
     @media (min-width: 784px) {
       display: var(--display-md, var(--display, flex));
@@ -317,16 +286,11 @@ const gridConfigs = {
       system-ui,
       -apple-system,
       BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      "Open Sans",
       "Helvetica Neue",
       sans-serif !important;
     -webkit-font-smoothing: antialiased;
     font-weight: 500;
+    text-rendering: optimizeLegibility;
   }
 
   .text-sm {
@@ -337,9 +301,10 @@ const gridConfigs = {
     letter-spacing: 0.3px;
     line-height: 160%;
     color: var(--Text-Muted, var(--grey-300));
+    text-rendering: optimizeLegibility;
   }
 
-  .custom-grid-spacer {
+  .grid-spacer-alt {
     flex-direction: column;
     gap: var(--spacing-4);
     justify-content: space-between;
@@ -366,6 +331,7 @@ const gridConfigs = {
     width: 100%;
     height: 100%;
     transition: background-color 0.15s;
+
     &:hover {
       background-color: var(--grey-800);
     }
@@ -379,5 +345,73 @@ const gridConfigs = {
 
   .white {
     color: var(--white);
+  }
+
+  /* Special item styles */
+  .item-25 {
+    --grid-lg-area: var(--grid-lg-area-25);
+    --grid-md-area: var(--grid-md-area-25);
+    --grid-area: var(--grid-area-25);
+    min-height: auto;
+  }
+
+  .item-26 {
+    --grid-lg-area: var(--grid-lg-area-26);
+    --grid-md-area: var(--grid-md-area-26);
+    --grid-area: var(--grid-area-26);
+    min-height: auto;
+  }
+
+  .item-27 {
+    --grid-lg-area: var(--grid-lg-area-27);
+    --grid-md-area: var(--grid-md-area-27);
+    --grid-area: var(--grid-area-27);
+  }
+
+  .item-28 {
+    --grid-lg-area: var(--grid-lg-area-28);
+    --grid-md-area: var(--grid-md-area-28);
+    --grid-area: var(--grid-area-28);
+  }
+
+  .item-29 {
+    --grid-lg-area: var(--grid-lg-area-29);
+    --grid-md-area: var(--grid-md-area-29);
+    --grid-area: var(--grid-area-29);
+  }
+
+  .item-30 {
+    --grid-lg-area: var(--grid-lg-area-30);
+    --display: none;
+    --display-lg: var(--display-lg-30);
+  }
+
+  .item-31 {
+    --grid-lg-area: var(--grid-lg-area-31);
+    --grid-md-area: var(--grid-md-area-31);
+    --grid-area: var(--grid-area-31);
+    min-height: 300px;
+  }
+
+  .item-32 {
+    --grid-lg-area: var(--grid-lg-area-32);
+    --grid-md-area: var(--grid-md-area-32);
+    --grid-area: var(--grid-area-32);
+  }
+
+  .item-33 {
+    --grid-lg-area: var(--grid-lg-area-33);
+    --grid-md-area: var(--grid-md-area-33);
+    --grid-area: var(--grid-area-33);
+    --display: none;
+    --display-md: var(--display-md-33);
+  }
+
+  .item-34 {
+    --grid-lg-area: var(--grid-lg-area-34);
+    --grid-md-area: var(--grid-md-area-34);
+    --grid-area: var(--grid-area-34);
+    --display: none;
+    --display-md: var(--display-md-34);
   }
 </style>
