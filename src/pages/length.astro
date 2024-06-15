@@ -1,6 +1,7 @@
 ---
 import clsx from "clsx";
 import ForwardArrow from "../assets/arrow.svg?raw";
+import TiltedArrow from "../assets/arrow-45.svg?raw";
 import DynamicLayout from "../layouts/DynamicLayout.astro";
 
 const items = Array.from({ length: 35 }, (_, index) => index);
@@ -18,8 +19,12 @@ const gridConfigs = {
     { index: 28, className: "grid-spacer-alt radial item-28" },
     { index: 29, className: "grid-spacer-alt item-29" },
     { index: 30, className: "grid-spacer-alt radial item-30" },
-    { index: 31, className: "grid-spacer-alt item-31", href: "/" },
-    { index: 32, className: "grid-spacer-alt item-32" },
+    {
+      index: 31,
+      className: "grid-spacer-alt item-31 center",
+      href: "/",
+    },
+    { index: 32, className: "grid-spacer-alt item-32 radial" },
     { index: 33, className: "grid-spacer-alt item-33" },
     { index: 34, className: "grid-spacer-alt radial item-34" },
   ],
@@ -64,19 +69,24 @@ const gridConfigs = {
                           Continue to the next section to learn about
                           customizing your theme with a custom font.
                         </p>
-                        <span class="text-sm white">
+                        <span class="text-sm accent">
                           Read the docs
                           <Fragment set:html={ForwardArrow} />
                         </span>
                       </>
                     )}
 
-                    {index === 31 && <h1 class="text-lg">Repeat Station</h1>}
+                    {index === 31 && <h1 class="text-lg">Town Canning</h1>}
                   </a>
                 );
               }
               return (
                 <li class={classNames}>
+                  {classNames.includes("radial") && (
+                    <div class="radial-counter">
+                      <Fragment set:html={TiltedArrow} />
+                    </div>
+                  )}
                   {index === 25 && <h1 class="text-lg">Repeat Station</h1>}
                 </li>
               );
@@ -95,15 +105,16 @@ const gridConfigs = {
     --column-count: 1;
     --spacing-3: 24px;
     --spacing-4: 32px;
+    --accent: #e7e818;
     --grey-300: #6a6b6c;
-    --grey-500: #2f3031;
+    --grey-500: #393a40;
     --grey-600: #1b1c1e;
     --grey-800: #0c0d0f;
     --grey-900: #07080a;
     --grid-width: min(calc(100vw - 30px * 2), 1065px);
     --display: flex;
 
-    /* Special grid area variables */
+    /* grid area variables */
     --grid-lg-area-25: 3 / 2;
     --grid-md-area-25: 4 / 2;
     --grid-area-25: 4 / 2;
@@ -337,14 +348,25 @@ const gridConfigs = {
     }
   }
 
-  .text-sm.white {
+  .center {
+    text-align: center;
+    display: flex;
+    align-items:;
+    justify-content: center;
+  }
+
+  .text-sm.accent {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .white {
-    color: var(--white);
+  .accent {
+    color: var(--accent);
+  }
+
+  .hidden {
+    display: none;
   }
 
   /* Special item styles */
@@ -413,5 +435,31 @@ const gridConfigs = {
     --grid-area: var(--grid-area-34);
     --display: none;
     --display-md: var(--display-md-34);
+  }
+
+  /* Radial counter styles */
+  .radial-counter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 300;
+    font-feature-settings: "ss09" on;
+    line-height: normal;
+    color: var(--grey-300);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    counter-increment: fig;
+    background: #08090c;
+    font-family: "IBM Plex Mono", monospace;
+
+    /* &::after {
+      content: counter(fig);
+    } */
   }
 </style>

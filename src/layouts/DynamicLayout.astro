@@ -23,7 +23,7 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
     <ViewTransitions />
@@ -54,6 +54,7 @@ const { title } = Astro.props;
     <div id="scroll-progress"></div>
     <div id="scroll-percentage">0%</div>
     <!-- <Header client:load /> -->
+
     <slot />
 
     <script>
@@ -86,5 +87,7 @@ const { title } = Astro.props;
         requestAnimationFrame(raf);
       });
     </script>
+
+    <style></style>
   </body>
 </html>
