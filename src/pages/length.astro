@@ -1,4 +1,5 @@
 ---
+import clsx from "clsx";
 import ForwardArrow from "../assets/arrow.svg?raw";
 import DynamicLayout from "../layouts/DynamicLayout.astro";
 
@@ -46,17 +47,16 @@ const gridConfigs = {
             );
 
             if (specialConfig) {
-              const classNames = [specialConfig.className];
+              const classNames = clsx(specialConfig.className, {
+                "link-hover": specialConfig.href,
+              });
 
-              if (specialConfig.href) {
-                classNames.push("link-hover");
-              }
               if (specialConfig.href) {
                 return (
                   <a
                     href={specialConfig.href}
                     target="_blank"
-                    class={classNames.join(" ")}
+                    class={classNames}
                   >
                     {index === 26 && (
                       <>
@@ -76,7 +76,7 @@ const gridConfigs = {
                 );
               }
               return (
-                <li class={classNames.join(" ")}>
+                <li class={classNames}>
                   {index === 25 && <h1 class="text-lg">Repeat Station</h1>}
                 </li>
               );
